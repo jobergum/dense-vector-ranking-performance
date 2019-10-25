@@ -92,7 +92,7 @@ http request status breakdown:
        200 :     5150 
 </pre>
 
-As seen from the above output from vespa-fbench the Vespa.ai engine is about 5 times faster then Elastic for this particular use case. Average latency is 119.24 ms for Elastic versus 23.12 ms for Vespa. 
+As seen from the above output from vespa-fbench the Vespa.ai engine is about 5 times faster than Elastic for this particular use case. Average latency is 119.24 ms for Elastic versus 23.12 ms for Vespa. 
 
 Note that the obtained query rate is with 1 client and is simply a function of the average latency.
 Also note that the average versus 95-99p latency does not differ significantly as each query recalls the same amount of documents (60K). Elastic seem to set a maximum of number of hits it collects and reports a hit count of 10K while Vespa calculates
