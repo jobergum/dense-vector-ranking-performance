@@ -1,0 +1,15 @@
+FROM vespaengine/vespa
+
+WORKDIR /opt/vespa/share/ 
+COPY config/vespa /opt/vespa/share/config
+COPY data/vespa/feed-0.json.gz /opt/vespa/share/feed-0.json.gz
+COPY data/vespa/feed-1.json.gz /opt/vespa/share/feed-1.json.gz
+COPY data/vespa/feed-2.json.gz /opt/vespa/share/feed-2.json.gz
+COPY bin/vespa/feed.py /opt/vespa/share/feed.py
+
+RUN  yum install -y \
+        epel-release\
+        && \
+    yum clean all
+RUN yum -y install python-pip
+RUN pip install requests

@@ -1,0 +1,21 @@
+{
+  "settings": {
+    "number_of_shards": 2,
+    "number_of_replicas": 1
+  },
+  "mappings": {
+    "dynamic": "false",
+    "_source": {
+      "enabled": "false"
+    },
+    "properties": {
+      "id": {
+        "type": "integer"
+      },
+      "text_embedding": {
+        "type": "dense_vector",
+        "dims": 512
+      }
+    }
+  }
+}

@@ -1,0 +1,17 @@
+FROM elasticsearch:7.4.0
+
+WORKDIR /usr/share/elasticsearch/
+
+COPY config/elastic /usr/share/elasticsearch/config
+COPY bin/elastic/create-index.sh /usr/share/elasticsearch/create-index.sh
+COPY data/elastic/feed-0.json.gz /usr/share/elasticsearch/feed-0.json.gz
+COPY data/elastic/feed-1.json.gz /usr/share/elasticsearch/feed-1.json.gz
+COPY data/elastic/feed-2.json.gz /usr/share/elasticsearch/feed-2.json.gz
+COPY bin/elastic/feed.py /usr/share/elasticsearch/feed.py
+
+RUN yum install -y \
+        epel-release\
+        && \
+    yum clean all
+RUN yum -y install python-pip
+RUN pip install requests
