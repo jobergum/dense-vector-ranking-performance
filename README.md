@@ -1,7 +1,7 @@
 # Vespa.ai and Elastic.co performance evaluation for dense vector dot product 
 
 Elastic recently released support for dense and sparse vectors of up to 1024 dimensions [Elastic Blog:Text similarity search with vector fields](https://www.elastic.co/blog/text-similarity-search-with-vectors-in-elasticsearch).
-In this repo we experiment and benchmark the performance of the dense vector representation in Elastic and compare it with Vespa.ai's tensor field support and tensor operations.  We evaluate the performance of performing nearest neighbor ranking
+In this repo we experiment and benchmark the performance of the dense vector representation in Elastic and compare it with [Vespa.ai](https://vespa.ai/)'s tensor field support and tensor operations.  We evaluate the performance of performing nearest neighbor ranking
 over a set of 60K 512 dimensional vectors against a query set of 1K 512 dimensional query vectors using the dotProduct as the similarity function. Both the query and document vectors are normalized so the dot product score equals the cosine similarity 
 which is typically used for nearest neighbor ranking. Both engines currently lack support for performing approximate nearest neighbor search (a-nn).  
 
