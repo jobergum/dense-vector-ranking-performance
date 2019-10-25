@@ -135,6 +135,7 @@ Both images are built on the official [elasticsearch](https://hub.docker.com/_/e
 * [Docker](https://www.docker.com/) installed and running. Script usage assumes Linux/Mac OS X parent host system. 
 * git client to checkout this repository
 * If one want to generate more data or change queries one need python3 with numpy installed
+* Ensure you have enough memory available. The Vespa container needs about 5GB and the Elastic container is configured with 8GB heap so 10GB should be about sufficient. 
 
 ## Instructions to reproduce benchmark
 Clone, build containers and run. Note that the repository contains data and feed files for 60K queries and is about 1.2GB..
