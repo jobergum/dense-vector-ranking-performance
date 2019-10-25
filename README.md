@@ -34,11 +34,13 @@ Parameter explanation :
 * -q input query file 
 * -P use HTTP POST 
 
-##Benchmark Results
+## Benchmark Results
+
 The following results were obtained on a instance with 1xIntel(R) Xeon(R) CPU E5-2630 0 @ 2.30GHz cpu and 24GB of memory.  
 
 <pre>
 Elastic 7.4 Vector Similarity Search
+
 ***************** Benchmark Summary *****************
 clients:                       1
 ran for:                     120 seconds
@@ -64,6 +66,7 @@ http request status breakdown:
        200 :     1002 
 
 Vespa.ai Vector Similarity Search
+
 ***************** Benchmark Summary *****************
 clients:                       1
 ran for:                     120 seconds
@@ -119,7 +122,7 @@ es                  214.88%             8.578 GiB / 23.39 GiB   36.68%          
 vespa               203.26%             3.508 GiB / 23.39 GiB   15.00%              30.6 MB / 3.86 MB   131 MB / 847 MB     2093
 </pre>
 
-##How to reproduce the benchmark  
+## How to reproduce the benchmark  
 The benchmark comparision can be reproduced using the published Dockerfiles. Both images are built on the official [elasticsearch](https://hub.docker.com/_/elasticsearch) and [vespa](https://hub.docker.com/r/vespaengine/vespa/) docker images.
 
 **Requirements:**
@@ -141,8 +144,8 @@ Verify that the two docker containers are running:
 $ docker ps |egrep "vespa|es"
 </pre>
 
-###Deploy configuration and document schema 
-*Vespa*
+### Deploy configuration and document schema 
+**Vespa**
 Verify that configuration service is running and returns 200 OK:
 <pre>
 $ docker exec vespa bash -c 'curl -s --head http://localhost:19071/ApplicationStatus'
@@ -152,7 +155,7 @@ $ docker exec vespa bash -c '/opt/vespa/bin/vespa-deploy prepare config && \
     /opt/vespa/bin/vespa-deploy activate'
 </pre>
 
-*Elastic*
+**Elastic**
 Verify that elastic service is running and returns 200 OK:
 <pre>
 $ docker exec es bash -c 'curl -s --head http://localhost:9200/'
@@ -161,7 +164,7 @@ Deploy schema
 $ docker exec es bash -c '/usr/share/elasticsearch/create-index.sh'
 </pre>
 
-###Feed data
+### Feed data
 This takes about 8 minutes with Vespa and about 36 minutes with Elastic. The python feed script simply
 posts documents one at a time in one thread. Both Vespa and Elastic has batch feed api's with higher performance but
 to keep the dependency list short we opt to use the simplistic HTTP apis. 
@@ -170,7 +173,7 @@ $ time docker exec es bash -c 'python feed.py'
 $ time docker exec vespa bash -c 'python feed.py'
 </pre>
 
-###Run benchmark 
+### Run benchmark 
 <pre>
 $ ./bin/do-benchmark.sh 
 </pre>
