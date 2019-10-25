@@ -126,7 +126,9 @@ vespa               203.26%             3.508 GiB / 23.39 GiB   15.00%          
 </pre>
 
 ## How to reproduce the benchmark  
-The benchmark comparision can be reproduced using the published Dockerfiles. Both images are built on the official [elasticsearch](https://hub.docker.com/_/elasticsearch) and [vespa](https://hub.docker.com/r/vespaengine/vespa/) docker images.
+The benchmark comparision can be reproduced using the published Dockerfiles: [Dockerfile.vespa](Dockerfile.vespa) [Dockerfile.elastic](Dockerfile.elastic).
+
+Both images are built on the official [elasticsearch](https://hub.docker.com/_/elasticsearch) and [vespa](https://hub.docker.com/r/vespaengine/vespa/) docker images.
 
 **Requirements:**
 
