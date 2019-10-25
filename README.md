@@ -160,7 +160,8 @@ Verify that elastic service is running and returns 200 OK:
 <pre>
 $ docker exec es bash -c 'curl -s --head http://localhost:9200/'
 </pre>
-Deploy schema 
+Deploy Elastic index schema 
+<pre>
 $ docker exec es bash -c '/usr/share/elasticsearch/create-index.sh'
 </pre>
 
