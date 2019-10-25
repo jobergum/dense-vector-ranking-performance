@@ -9,9 +9,9 @@ which is typically used for nearest neighbor ranking. Both engines currently lac
 This work is published under APACHE 2.0  https://www.apache.org/licenses/LICENSE-2.0 
 
 ## Configuration and setup 
-Using the published docker images for elasticsearch and vespa.ai we build two docker images building on the official images so that we can run the same benchmark setup on both engines using the same hardware. 
-We randomly generate 60K 512 dimensional vectors using numpy which we index in both Elastic and Vespa using the respective HTTP based APIs. The task given is to compute the top-5 ranking documents using 
-the dotProduct between the document and query vector. Vespa is configured to use 2 threads per search and Elastic configured with two shards. 
+Using the published docker images for elasticsearch and vespa.ai we build two docker images building on the official images so that we can run the same benchmark setup with both engines using the same hardware. 
+We randomly generate 60K 512-dimensional vectors using numpy which we index in both Elastic and Vespa using the respective HTTP based APIs. The task given is to compute the top-5 ranking documents using 
+the dotProduct between the document and query vector as the ranking function. Vespa is configured to use 2 threads per search and Elastic configured with two shards. 
 
 We use [vespa-fbench](https://docs.vespa.ai/documentation/performance/fbench.html) benchmarking client 
 as it's already distributed with the vespa.ai image and is simple to use and supports HTTP POST with connection pooling. Both engines have similar HTTP based APIs (JSON feed formats and JSON response renders).
@@ -28,7 +28,7 @@ docker run -v $(pwd)/data/:/tmp/queries --net=host --rm --entrypoint /opt/vespa/
 
 Parameter explanation :
 * -s 120 run for 120 seconds
-* -n 1 one client (No concurrency, only measuring latency while no concurrency
+* -n 1 one client (No concurrency, only measuring latency with no concurrency involved
 * -c 0 No client wait, fire a new query when the previous has completed
 * -i 20 Ignore the latency of the first 20 queries to allow JVM warmup (JiT)
 * -q input query file 
@@ -92,10 +92,13 @@ http request status breakdown:
        200 :     5150 
 </pre>
 
-As seen from the above output from vespa-fbench the Vespa.ai engine is about 5 times faster then Elastic for this particular use case. 119.24 ms for ES versus 23.12 ms for Vespa.  
+As seen from the above output from vespa-fbench the Vespa.ai engine is about 5 times faster then Elastic for this particular use case. Average latency is 119.24 ms for Elastic versus 23.12 ms for Vespa. 
+
 Note that the obtained query rate is with 1 client and is simply a function of the average latency.
-Also note that the average versus 99p latency does not differ significantly as each query recalls the same amount of documents (60K). Elastic seem to set a maximum of number of hits it collects and reports a hit count of 10K while Vespa calculates
-the exact total count (60K). Sample debug queries which demonstrates this.
+Also note that the average versus 95-99p latency does not differ significantly as each query recalls the same amount of documents (60K). Elastic seem to set a maximum of number of hits it collects and reports a hit count of 10K while Vespa calculates
+the exact total count (60K). [Elastic doc tracking total hits](https://www.elastic.co/guide/en/elasticsearch/reference/7.0/search-request-track-total-hits.html )
+
+Sample debug queries which demonstrates this:.
 
 **Elastic**
 
