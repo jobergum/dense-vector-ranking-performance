@@ -142,7 +142,7 @@ Clone, build containers and run. Note that the repository contains data and feed
 <pre>
 $ git clone https://github.com/jobergum/dense-vector-ranking-performance.git; cd dense-vector-ranking-performance
 $ ./bin/build.sh 
-$ ./bin/run-sh
+$ ./bin/run.sh
 </pre>
 
 Verify that the two docker containers are running:
