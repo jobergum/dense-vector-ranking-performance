@@ -26,7 +26,7 @@
         <tuning>
           <searchnode>
             <requestthreads>
-                <persearch>2</persearch>
+                <persearch>1</persearch>
             </requestthreads>
           </searchnode>
         </tuning>

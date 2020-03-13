@@ -1,7 +1,7 @@
 {
   "settings": {
-    "number_of_shards": 2,
-    "number_of_replicas": 1
+    "number_of_shards": 1,
+    "number_of_replicas": 0
   },
   "mappings": {
     "dynamic": "false",
@@ -12,9 +12,9 @@
       "id": {
         "type": "integer"
       },
-      "text_embedding": {
+      "vector": {
         "type": "dense_vector",
-        "dims": 512
+        "dims":960 
       }
     }
   }
