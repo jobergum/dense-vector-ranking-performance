@@ -1,22 +1,19 @@
-# Copyright 2017 Yahoo Holdings. Licensed under the terms of the Apache 2.0 license. See LICENSE in the project root.
-
 search doc {
-
   document doc {
     field id type int {
       indexing: summary |attribute
     }
-    field text_embedding type tensor<float>(x[512]) {
+
+    field vector type tensor<float>(x[960]) {
       indexing: attribute
     }
   }
   document-summary id {
     summary id type int { source: id}
   }
-
-  rank-profile dotProduct inherits default {
+  rank-profile euclidean-rank inherits default {
     first-phase {
-      expression: sum(query(tensor)*attribute(text_embedding))
+      expression: 1/(1 + sqrt(sum(join(query(vector), attribute(vector), f(x,y)((x-y)*(x-y))))))
     }
   }
 }
