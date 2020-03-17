@@ -166,9 +166,10 @@ search doc {
 * [doc.sd](config/vespa/searchdefinitions/doc.sd)
 
 ## Benchmark Results
-The following results were obtained on an instance with 1 x Intel(R) Xeon(R) CPU E5-2630 @ 2.30GHz with 24GB of memory. 
 
 ## gist-960-euclidean Results
+
+The following results were obtained on an instance with 1 x Intel(R) Xeon(R) CPU E5-2620 v2 @ 2.30GHz (Ivy Bridge) 
 
 ### single shard with Elastic and threads-per-search equal to one with Vespa
 
@@ -179,7 +180,16 @@ The following results were obtained on an instance with 1 x Intel(R) Xeon(R) CPU
 
 
 ## sift-128-euclidean Result
-Coming soon
+
+The following results were obtained on an instance with 1 x Intel(R) Xeon E5-2680 v3 2.50GHz (Haswell)
+
+### single shard with Elastic and threads-per-search equal to one with Vespa
+
+| Engine                                                            | QPS        | Average Latency (ms) | 95P Latency (ms) | Recall@10 | 
+| ----------------------------------------------------------------- | ---------: | -------------------: | ---------------: | --------: |  
+| Elastic 7.6                                                       | 3.29       |   303.96             |    337.89        | 1.0000    |
+| Vespa   7.190.14                                                  | 9.14       |   109.33             |    148.90        | 1.0000    |
+
 
 ### Benchmark parameters
 <pre>
@@ -208,7 +218,7 @@ the benchmark using the gist-960-euclidean dataset with 960 dimensions.
 
 * [Docker](https://www.docker.com/) installed and running. Script usage assumes Linux/Mac OS X host system. 
 * git client to checkout this repository and wget installed to download the dataset(s)
-* python3 to convert the data into Vespa and Elastic feed and query json format
+* python3 to convert the data into Vespa and Elastic feed and query json format (Also h5py and requests library, obtain with pip3 install h5py requests)
 * Ensure you have enough memory available. The Vespa container needs about 5GB and the Elastic container is configured with 8GB heap so 10GB should be about sufficient. 
 
 ## Instructions to reproduce benchmark on sift 1M vector data set
@@ -270,3 +280,4 @@ $ ./bin/do-benchmark.sh
 <pre>
 $ python3 ./bin/check-recall.py gist-960-euclidean.hdf5 
 </pre> 
+
