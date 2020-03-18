@@ -178,6 +178,15 @@ The following results were obtained on an instance with 1 x Intel(R) Xeon(R) CPU
 | Elastic 7.6                                                       | 0.39       |  2547.42             |   2664.05        | 1.0000    |
 | Vespa   7.190.14                                                  | 0.63       |  1572.29             |   1737.99        | 1.0000    |
 
+The following results were obtained on an instance with 1 x Intel(R) Xeon E5-2680 v3 2.50GHz (Haswell)
+
+### single shard with Elastic and threads-per-search equal to one with Vespa
+
+| Engine                                                            | QPS        | Average Latency (ms) | 95P Latency (ms) | Recall@10 | 
+| ----------------------------------------------------------------- | ---------: | -------------------: | ---------------: | --------: |  
+| Elastic 7.6                                                       | 0.57       |  1752.74             |   1850.74        | 1.0000    |
+| Vespa   7.190.14                                                  | 1.32       |   756.61             |    955.63        | 1.0000    |
+
 
 ## sift-128-euclidean Result
 
