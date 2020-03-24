@@ -189,6 +189,15 @@ The following results were obtained on an instance with 1 x Intel(R) Xeon E5-268
 
 
 ## sift-128-euclidean Result
+The following results were obtained on an instance with 1 x Intel(R) Xeon(R) CPU E5-2620 v2 @ 2.30GHz (Ivy Bridge) 
+
+### single shard with Elastic and threads-per-search equal to one with Vespa
+
+| Engine                                                            | QPS        | Average Latency (ms) | 95P Latency (ms) | Recall@10 | 
+| ----------------------------------------------------------------- | ---------: | -------------------: | ---------------: | --------: |  
+| Elastic 7.6                                                       | 2.01       |   496.42             |    555.34        | 1.0000    |
+| Vespa   7.190.14                                                  | 4.03       |   248.29             |    316.40        | 1.0000    |
+
 
 The following results were obtained on an instance with 1 x Intel(R) Xeon E5-2680 v3 2.50GHz (Haswell)
 
