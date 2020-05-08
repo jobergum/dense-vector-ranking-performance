@@ -28,6 +28,15 @@ def feed_to_es_and_vespa(data):
 
 nthreads=18
 with concurrent.futures.ThreadPoolExecutor(max_workers=nthreads) as executor:
-  futures = [executor.submit(feed_to_es_and_vespa,data) for data in enumerate(train)]
-  for result in concurrent.futures.as_completed(futures):
-    pass
+  futures = []
+  for data in enumerate(train):
+    futures.append(executor.submit(feed_to_es_and_vespa, data))
+    if len(futures) == nthreads * 10:
+      for result in concurrent.futures.as_completed(futures):
+        pass
+      futures = []
+
+  if len(futures) > 0:
+    for result in concurrent.futures.as_completed(futures):
+      pass
+    futures = []
