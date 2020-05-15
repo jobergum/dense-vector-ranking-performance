@@ -50,6 +50,29 @@ def get_elastic_result(query_vector):
     hits.append(int(id))
   return hits
 
+def get_opendistroforelastic_result(query_vector):
+  oes_script_query = {
+    'knn': {
+      'vector': {
+        'vector': query_vector,
+        'k': '10'
+      }
+    }
+  }
+  oes_body={
+    'size': 10,
+    'timeout': '15s', 
+    'query': oes_script_query
+  }
+  response = requests.post('http://localhost:19200/doc/_search', json=oes_body)
+  response.raise_for_status()
+  hits=[]
+  for h in response.json()['hits']['hits']:
+    id = h['_id']
+    score = h['_score']  
+    hits.append(int(id))
+  return hits
+
 def compute_recall(real_neighbors,computed_neighbors, n=10):
   real_neighbors = real_neighbors[0:n]
   recalled = 0 
@@ -60,18 +83,23 @@ def compute_recall(real_neighbors,computed_neighbors, n=10):
 
 average_recall_elastic = []
 average_recall_vespa = []
+average_recall_opendistroforelastic = []
 for i,vector in enumerate(data['test'][0:1000]):
   real_neighbors = data['neighbors'][i]
   distances = data['distances'][i]
   vector=vector.tolist()
 
+  computed_neighbors_oes = get_opendistroforelastic_result(vector)
   computed_neighbors_es = get_elastic_result(vector)
   computed_neighbors_vespa  = get_vespa_result(vector)
 
+  recall_opendistroforelastic = compute_recall(real_neighbors, computed_neighbors_oes)
   recall_vespa = compute_recall(real_neighbors, computed_neighbors_vespa)
   recall_elastic = compute_recall(real_neighbors, computed_neighbors_es)
+  average_recall_opendistroforelastic.append(recall_opendistroforelastic)
   average_recall_elastic.append(recall_elastic)
   average_recall_vespa.append(recall_vespa)
 
 print('Average recall Vespa = %f' % np.average(average_recall_vespa))
 print('Average recall Elastic = %f' % np.average(average_recall_elastic))
+print('Average recall Opendistro for Elastic = %f' % np.average(average_recall_opendistroforelastic))

@@ -25,6 +25,8 @@ def feed_to_es_and_vespa(data):
   response.raise_for_status()
   response = requests.post('http://localhost:9200/doc/_doc/%i' %docid, json=es_body)
   response.raise_for_status()
+  response = requests.post('http://localhost:19200/doc/_doc/%i' %docid, json=es_body)
+  response.raise_for_status()
 
 nthreads=18
 with concurrent.futures.ThreadPoolExecutor(max_workers=nthreads) as executor:
