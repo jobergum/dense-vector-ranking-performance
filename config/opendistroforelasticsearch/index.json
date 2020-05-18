@@ -1,0 +1,22 @@
+{
+  "settings": {
+    "number_of_shards": 1,
+    "number_of_replicas": 0,
+    "index.knn": true
+  },
+  "mappings": {
+    "dynamic": "false",
+    "_source": {
+      "enabled": "false"
+    },
+    "properties": {
+      "id": {
+        "type": "integer"
+      },
+      "vector": {
+        "type": "knn_vector",
+        "dimension":960 
+      }
+    }
+  }
+}
