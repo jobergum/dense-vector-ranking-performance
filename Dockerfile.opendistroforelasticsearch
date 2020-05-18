@@ -7,4 +7,4 @@ COPY bin/opendistroforelasticsearch/create-index.sh /usr/share/elasticsearch/cre
 
 ENV http.port=19200
 ENV opendistro_security.disabled=true
-ENV knn.algo_param.index_thread_qty=4
+ENV knn.algo_param.index_thread_qty=1
