@@ -52,6 +52,8 @@ for v in test:
   oes_body={
     'size': 10,
     'timeout': '15s', 
+    'stored_fields': '_none_',
+    'docvalue_fields': ['_id'],
     'query': oes_script_query
   }
   oes_queries.write('/doc/_search\n')
